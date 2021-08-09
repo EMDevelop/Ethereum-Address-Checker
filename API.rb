@@ -2,22 +2,6 @@
 ########################################### 
 ###########################################
 
-# Run Me From "play" Directory ### ./play.rb
-# Run Me From Anywhere         ###  /Users/ed/Desktop/Makers/play/play.rb
-
-###########################################
-###########################################
-# Code:
-# Where I got this guide from
-# https://ledumjg.medium.com/detailed-guide-on-etherscan-ethereum-developers-apis-5e12934f728a
-# 
-# API Request
-# Module = account
-# Action = balance
-# Address = the address you want to infer information from
-# Tag = latest, so that you get the latest balance
-# Key = Your APIKeyToken
-
 require 'rest-client'
 require 'json'
 require 'dotenv'
