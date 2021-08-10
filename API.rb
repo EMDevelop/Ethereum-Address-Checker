@@ -20,6 +20,7 @@ address =
 ]
 web = Hash.new
 
+puts "---------------------------------Fetching Transactions For Address---------------------------------"
 request_loop_count = 1
 address.each { |target_address| 
   if !web[target_address] 
@@ -33,20 +34,24 @@ address.each { |target_address|
     web[target_address]["from"].push(transaction["from"])
     web[target_address]["to"].push(transaction["to"])
   }
-  puts "Data #{request_loop_count} Address "
+  puts "Address #{request_loop_count} Fetched -------------------"
   request_loop_count +=1
 }
-puts "Data fully Fetched"
+puts "---------------------------------Data fully Fetched---------------------------------"
 
+5.times {puts " "}
+
+
+# Check for singular transactions directly between wallets
+puts "---------------------------------Checking for Direct Transactions---------------------------------"
 outer_counter = 0
 inner_count = 0
-
-address.each { |outer_address|
-  web.each { |inner_address, _|  # Looping through our list of targets
-    web[inner_address].each { |title_key, value| # Looping through 
-      if title_key != "hash"
-        value.each { |array_address|
-          if outer_address.downcase == array_address.downcase && outer_address.downcase  != inner_address.downcase 
+address.each { |outer_address|   # Looping through outer list of target addresses
+  web.each { |inner_address, _|  # Looping through inner list of target addresses (the same addresses comparing with eachother)
+    web[inner_address].each { |title_key, value| # Looping through the data options (hash, to, from) and the values
+      if title_key != "hash" # Ignoring the hash, for this we're only interested in to and from addesses
+        value.each { |array_address| # The hash values for each data option are stored as arrays, so we need to loop through them all
+          if outer_address.downcase == array_address.downcase && outer_address.downcase != inner_address.downcase #is the target address present in any other target address's to/from data options?
             if title_key == "from"
               puts "Address '#{outer_address}' has has an outbound transaction to '#{inner_address}'"
             else title_key == "to"
@@ -60,7 +65,11 @@ address.each { |outer_address|
   }
   outer_counter += 1
 }
+puts "---------------------------------Direct Transactions Complete---------------------------------"
 
 
+# Find addresses that our target addresses have in common
+# AKA, they've transacted with them before
+puts "---------------------------------Checking For Addresses In Common---------------------------------"
 
 
