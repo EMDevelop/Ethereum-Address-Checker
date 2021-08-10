@@ -1,1 +1,9 @@
 I'm creating a ruby script to map suspect crypto addresses to one another using their transactions
+
+Notes:
+
+# Built using Ruby
+
+# Scans Ethereum addresses only
+
+# Please use, copy, fork, message me for questions, anything goes. 

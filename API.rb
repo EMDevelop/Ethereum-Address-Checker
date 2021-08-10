@@ -15,12 +15,12 @@ address =
   # "0x4e7e1c73c116649c1c684acb6ec98bac4fbb4ef6", 
   # "0xc55ba66cab0298b3a67e1d0bf6a1613907941b09", 
   # "0xddee597e2404149c5e9aea899dfdf7c15874245e"
-  "0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11",
-  "0x72140C1886f8F2Dd932DCe06795901F8FB6378a7"
 ]
 web = Hash.new
 
-puts "---------------------------------Fetching Transactions For Address---------------------------------"
+5.times {puts " "}
+
+puts "---------------------------------FETCHING: Transactions For Address---------------------------------"
 request_loop_count = 1
 address.each { |target_address| 
   if !web[target_address] 
@@ -34,16 +34,14 @@ address.each { |target_address|
     web[target_address]["from"].push(transaction["from"])
     web[target_address]["to"].push(transaction["to"])
   }
-  puts "Address #{request_loop_count} Fetched -------------------"
+  puts " Address #{request_loop_count} -------------------"
   request_loop_count +=1
 }
-puts "---------------------------------Data fully Fetched---------------------------------"
+puts "---------------------------------COMPLETE: Data fully Fetched---------------------------------"
 
 5.times {puts " "}
 
-
-# Check for singular transactions directly between wallets
-puts "---------------------------------Checking for Direct Transactions---------------------------------"
+puts "---------------------------------CHECKING: Direct Transactions---------------------------------"
 outer_counter = 0
 inner_count = 0
 address.each { |outer_address|   # Looping through outer list of target addresses
@@ -65,11 +63,33 @@ address.each { |outer_address|   # Looping through outer list of target addresse
   }
   outer_counter += 1
 }
-puts "---------------------------------Direct Transactions Complete---------------------------------"
+puts "---------------------------------COMPLETE: Direct Transactions ---------------------------------"
 
+5.times {puts " "}
 
-# Find addresses that our target addresses have in common
-# AKA, they've transacted with them before
-puts "---------------------------------Checking For Addresses In Common---------------------------------"
+puts "---------------------------------CHECKING: Addresses In Common---------------------------------"
 
+repeat_offenders = Hash.new
 
+web.each { |target_address, title_key| 
+  title_key.each { |title, address_arrays|
+    if title != "hash"
+      address_arrays.each { |array|
+        if array != target_address
+          if !repeat_offenders[array] 
+            repeat_offenders[array] = [target_address] 
+          else
+            !repeat_offenders[array].include?(target_address) && repeat_offenders[array].push(target_address)
+          end
+        end
+      }
+    end
+  }
+}
+
+repeat_offenders.each { |offender, target_address| 
+  if target_address.length > 1
+    puts "#{offender} has transactions with #{target_address.length} target addresses: #{target_address.join(", ")}"
+  end
+}
+puts "---------------------------------COMPLETE: Addresses In Common ---------------------------------"
