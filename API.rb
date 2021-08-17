@@ -15,8 +15,18 @@ address =
   # "0x4e7e1c73c116649c1c684acb6ec98bac4fbb4ef6", 
   # "0xc55ba66cab0298b3a67e1d0bf6a1613907941b09", 
   # "0xddee597e2404149c5e9aea899dfdf7c15874245e"
+  "0x72140C1886f8F2Dd932DCe06795901F8FB6378a7",
+  "0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11"
 ]
+
 web = Hash.new
+
+known_addresses = {
+  "0x7be8076f4ea4a4ad08075c2508e481d6c946d12b" => "OpenSea Contract", 
+  "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2" => "Wrapped Eth Contract", 
+  "0x7a250d5630b4cf539739df2c5dacb4c659f2488d" => "Uniswap Privacy Router",
+  "0xBd3531dA5CF5857e7CfAA92426877b022e612cf8" => "PudgyPenguins"
+}
 
 5.times {puts " "}
 
@@ -87,8 +97,12 @@ web.each { |target_address, title_key|
   }
 }
 
+red_herrings = known_addresses.transform_keys {|key| key.downcase}
+
 repeat_offenders.each { |offender, target_address| 
-  if target_address.length > 1
+  if red_herrings[offender.downcase] && target_address.length > 1
+    puts "✕ ✕ ✕ #{red_herrings[offender]} | #{target_address.join(", ")}"
+  elsif target_address.length > 1
     puts "#{offender} has transactions with #{target_address.length} target addresses: #{target_address.join(", ")}"
   end
 }
