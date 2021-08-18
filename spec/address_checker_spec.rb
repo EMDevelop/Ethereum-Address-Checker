@@ -4,7 +4,11 @@ describe AddressChecker do
 
   subject = AddressChecker.new
 
-  
+  context 'Main Menu' do
+    it 'checks main menu exists' do
+      expect(subject.main_menu).to eq 1
+    end
+  end
 
   context 'Check Input Data.' do
 
@@ -20,8 +24,16 @@ describe AddressChecker do
       expect(subject.origin_addresses).to eq ["0x72140C1886f8F2Dd932DCe06795901F8FB6378a7","0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11" ]
     end
 
-    it 'If user wants to add their own addresses, check that they add more than 1 address ' do
+    it 'If user wants to add their own addresses, check that they add more than 1 address' do
       subject.input_origin_addresses_manually?("y")
+      # allow_any_instance_of(Object).to receive(:gets).and_return('0xa95aea385130718be87b380b419eeac8da40de55', '0xa95aea385130718be87b380b419eeac8da40de55', 'quit')
+      # expect(subject).to receive(:puts).with("Add at least 2 Addresses, hit enter after each address, type 'quit' when done")
+      # allow(subject).to receive(:gets).and_return('0xa95aea385130718be87b380b419eeac8da40de55', '0xa95aea385130718be87b380b419eeac8da40de55', 'quit')
+      # subject.stub(gets: 'user input')
+      # expect(STDOUT).to receive(:puts).with("Add at least 2 Addresses, hit enter after each address, type 'quit' when done")
+      # allow(STDIN).to receive(:gets).and_return('0xa95aea385130718be87b380b419eeac8da40de55', '0xa95aea385130718be87b380b419eeac8da40de55', 'quit')
+      # expect($stdout).to receive(:puts).with("Add at least 2 Addresses, hit enter after each address, type 'quit' when done")
+      # allow($stdin).to receive(:gets).and_return('0xa95aea385130718be87b380b419eeac8da40de55', '0xa95aea385130718be87b380b419eeac8da40de55', 'quit')
       expect(subject.origin_addresses.length).to be > 1
     end
 
@@ -36,8 +48,6 @@ describe AddressChecker do
     it 'checks if a valid address will address will be accepted' do
       expect(subject.check_ethereum_address_validity("0xa95aea385130718be87b380b419eeac8da40de55")).to eq true
     end
-
-    
 
   end 
 

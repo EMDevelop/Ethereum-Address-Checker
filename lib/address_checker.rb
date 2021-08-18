@@ -18,13 +18,12 @@ class AddressChecker
 
   def input_origin_addresses_manually?(y_n)  
 
-    if y_n != "y" && y_n != "n"
-      print "Please only enter 'y' or 'n' into 'input_origin_addresses_manually'"
-    end
     if y_n == "y"
       handle_manual_input
     else y_n == "n"
       @origin_addresses = ["0x72140C1886f8F2Dd932DCe06795901F8FB6378a7","0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11"]
+    else 
+      print "Please only enter 'y' or 'n' into 'input_origin_addresses_manually'"
     end
       
   end
@@ -32,15 +31,20 @@ class AddressChecker
   def check_ethereum_address_validity(address)
     address.downcase!
     valid_address = true
-    valid_address = false if address.length != 42
-    valid_address = false if address[0..1] != "0x"
+    valid_address = false if address.length != 42 || address[0..1] != "0x"
     valid_address
   end
   
+  def main_menu
+    1
+  end
+  
+
 end
+
+
 
 address_investigation = AddressChecker.new
 
-# address_investigation.input_origin_addresses_manually?("h")
 
-# print address_investigation.origin_addresses
+
