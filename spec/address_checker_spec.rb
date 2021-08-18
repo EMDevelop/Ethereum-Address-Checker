@@ -26,6 +26,7 @@ describe AddressChecker do
 
     it 'If user wants to add their own addresses, check that they add more than 1 address' do
       subject.input_origin_addresses_manually?("y")
+      # let(:user_input) { ["rock\n", "rock\n"] }
       # allow_any_instance_of(Object).to receive(:gets).and_return('0xa95aea385130718be87b380b419eeac8da40de55', '0xa95aea385130718be87b380b419eeac8da40de55', 'quit')
       # expect(subject).to receive(:puts).with("Add at least 2 Addresses, hit enter after each address, type 'quit' when done")
       # allow(subject).to receive(:gets).and_return('0xa95aea385130718be87b380b419eeac8da40de55', '0xa95aea385130718be87b380b419eeac8da40de55', 'quit')
