@@ -2,10 +2,13 @@ require 'address_checker'
 
 describe AddressChecker do   
 
+  subject = AddressChecker.new
+
+  
+
   context 'Check Input Data.' do
 
-    subject = AddressChecker.new
-
+  
     it 'if input is not y or n for manual address input, print error' do
       expect do
         subject.input_origin_addresses_manually?("h")
@@ -19,7 +22,6 @@ describe AddressChecker do
 
     it 'If user wants to add their own addresses, check that they add more than 1 address ' do
       subject.input_origin_addresses_manually?("y")
-      # let(:user_input) { ["y\n", "0x3939304844884933848484\n"] }   # simulate input
       expect(subject.origin_addresses.length).to be > 1
     end
 
@@ -34,6 +36,8 @@ describe AddressChecker do
     it 'checks if a valid address will address will be accepted' do
       expect(subject.check_ethereum_address_validity("0xa95aea385130718be87b380b419eeac8da40de55")).to eq true
     end
+
+    
 
   end 
 
