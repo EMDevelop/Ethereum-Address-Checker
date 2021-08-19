@@ -14,7 +14,7 @@ describe AddressChecker do
   context 'User Inputting Address: Incorrect Details Provided' do
 
     before(:each) do
-      allow(subject).to receive(:gets).and_return("0xa95aea385130718be87b380b419eeac8da40de55", "quit" )
+      allow(subject).to receive(:gets).and_return("0xa95aea385130718be87b380b419eeac8da40de55", "quit","0xa95aea385130718be87b380b419eeac8da40de55", "quit" )
     end
 
     it 'Throws error if there is < 2 addresses provided' do

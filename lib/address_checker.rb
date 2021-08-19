@@ -18,18 +18,19 @@ class AddressChecker
 
   def handle_manual__address_input 
       puts "Add at least 2 Addresses, hit enter after each address, type 'quit' when done"
-      input_count = 0
+      # input_count = 0
       while true do
         address = input_address
-        break if handle_address_input_outcome(input_count, address) == 'quit'
-        input_count += 1
+        break if handle_address_input_outcome( address) == 'quit'
+        # input_count += 1
       end
   end
 
-  def handle_address_input_outcome(count, input)
-    if count >= 2 && input == "quit"
+  def handle_address_input_outcome(input)
+    
+    if @origin_addresses.length >= 2 && input == "quit"
       return 'quit'
-    elsif count < 2 && input == "quit"
+    elsif @origin_addresses.length < 2 && input == "quit"
       puts "Error: Please add at least 2 addresses"
     else
       check_address_validity(input) ? handle_address_storing(input) : (puts "Error: Invalid Ethereum Address")
