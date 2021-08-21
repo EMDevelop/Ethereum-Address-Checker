@@ -16,7 +16,6 @@ class AddressChecker
     puts text
     dash_length = text.length
     (1..dash_length).each {|dash| print dash == dash_length ? "-\n" : "-"}
-
   end
 
   #Add address
@@ -84,10 +83,22 @@ class AddressChecker
   end
 
   def handle_menu_input(input)
-    if input == 'quit'
+     
+    if !is_valid_menu_unput?(input)
+      puts "Error: Input not found. Please either type a number or 'quit'"
+      return
+    elsif input == 'quit'
       puts "Thanks for using the Ethereum Address Checker"
       return 'quit'
+    else
+      #process selection
     end
   end
+
+  def is_valid_menu_unput?(input)
+    (!menu_options.key?(input) && input != 'quit') ? false : true
+  end
   
+
+
 end

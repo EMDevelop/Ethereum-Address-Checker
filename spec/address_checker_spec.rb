@@ -7,7 +7,7 @@ require 'address_checker'
 describe AddressChecker do   
 
 
-  context 'Menu Checker' do
+  context 'Menu: Output Checker' do
     before(:each) do
       allow(subject).to receive(:gets).and_return("1", "quit")
     end
@@ -20,6 +20,16 @@ describe AddressChecker do
       expect {subject.main_menu}.to output(include('Welcome to the Ethereum Address Checker','Main Menu: type number + hit enter', 'Add address manually', 'Test with dummy address' )).to_stdout
     end
 
+  end
+
+  context 'Menu: Handle User Input' do
+    before(:each) do
+      allow(subject).to receive(:gets).and_return("biddly","quit")
+    end
+
+    it 'checks error when incorrect input' do
+      expect{subject.main_menu}.to output(include("Error: Input not found. Please either type a number or 'quit'")).to_stdout
+    end
   end
 
   context 'User Inputting Address: Incorrect Details Provided' do
