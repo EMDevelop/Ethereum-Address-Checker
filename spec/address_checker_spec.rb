@@ -7,8 +7,19 @@ require 'address_checker'
 describe AddressChecker do   
 
 
-  context 'Fetching API Data' do
-  
+  context 'Menu Checker' do
+    before(:each) do
+      allow(subject).to receive(:gets).and_return("1", "quit")
+    end
+
+    it 'verifies hello world' do
+      expect {subject.main_menu}.to output(include('Welcome to the Ethereum Address Checker','Thanks for using the Ethereum Address Checker' )).to_stdout
+    end
+
+    it 'Ensures prompt for Adding Address' do 
+      expect {subject.main_menu}.to output(include('Welcome to the Ethereum Address Checker','Main Menu: type number + hit enter', '1. Add Address Manually' )).to_stdout
+    end
+
   end
 
   context 'User Inputting Address: Incorrect Details Provided' do

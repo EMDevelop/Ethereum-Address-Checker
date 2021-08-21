@@ -6,6 +6,13 @@ class AddressChecker
 
   attr_reader :origin_addresses
 
+
+  #General 
+  def user_input
+     gets.chomp
+  end
+
+  #Add address
   def input_origin_addresses_manually(y_n)  
     if y_n == "y"
       handle_manual__address_input
@@ -18,16 +25,13 @@ class AddressChecker
 
   def handle_manual__address_input 
       puts "Add at least 2 Addresses, hit enter after each address, type 'quit' when done"
-      # input_count = 0
       while true do
-        address = input_address
+        address = user_input
         break if handle_address_input_outcome( address) == 'quit'
-        # input_count += 1
       end
   end
 
   def handle_address_input_outcome(input)
-    
     if @origin_addresses.length >= 2 && input == "quit"
       return 'quit'
     elsif @origin_addresses.length < 2 && input == "quit"
@@ -41,10 +45,6 @@ class AddressChecker
     @origin_addresses << input
   end
 
-  def input_address
-     gets.chomp
-  end
-
   def check_address_validity(address)
     address.downcase!
     valid_address = true
@@ -52,9 +52,34 @@ class AddressChecker
     valid_address
   end
 
+  #Menu
   def main_menu
-    2
+    puts "Welcome to the Ethereum Address Checker"
+    while true do
+      display_menu_options
+      menu_input = user_input
+      break if handle_menu_input(menu_input) == 'quit'
+    end
+  end
+
+  def display_menu_options 
+    puts "Main Menu: type number + hit enter"
+    menu_options.each { |option_number, option_description| 
+      puts "#{option_number}. #{option_description}"
+    }
+  end
+
+  def menu_options
+    {
+      "1"=>"Add Address Manually"
+    }
+  end
+
+  def handle_menu_input(input)
+    if input == 'quit'
+      puts "Thanks for using the Ethereum Address Checker"
+      return 'quit'
+    end
   end
   
-
 end
