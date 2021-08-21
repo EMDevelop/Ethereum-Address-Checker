@@ -17,7 +17,7 @@ describe AddressChecker do
     end
 
     it 'Ensures prompt for Adding Address' do 
-      expect {subject.main_menu}.to output(include('Welcome to the Ethereum Address Checker','Main Menu: type number + hit enter', '1. Add Address Manually' )).to_stdout
+      expect {subject.main_menu}.to output(include('Welcome to the Ethereum Address Checker','Main Menu: type number + hit enter', 'Add address manually', 'Test with dummy address' )).to_stdout
     end
 
   end

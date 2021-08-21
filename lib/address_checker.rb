@@ -12,6 +12,13 @@ class AddressChecker
      gets.chomp
   end
 
+  def display_heading(text)
+    puts text
+    dash_length = text.length
+    (1..dash_length).each {|dash| print dash == dash_length ? "-\n" : "-"}
+
+  end
+
   #Add address
   def input_origin_addresses_manually(y_n)  
     if y_n == "y"
@@ -63,7 +70,7 @@ class AddressChecker
   end
 
   def display_menu_options 
-    puts "Main Menu: type number + hit enter"
+    display_heading("Main Menu: type number + hit enter")
     menu_options.each { |option_number, option_description| 
       puts "#{option_number}. #{option_description}"
     }
@@ -71,7 +78,8 @@ class AddressChecker
 
   def menu_options
     {
-      "1"=>"Add Address Manually"
+      "1"=>"Add address manually",
+      "2"=>"Test with dummy address"
     }
   end
 
