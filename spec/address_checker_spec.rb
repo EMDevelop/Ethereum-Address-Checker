@@ -6,10 +6,9 @@ require 'address_checker'
 
 describe AddressChecker do   
 
-
-  context 'Menu: Output Checker' do
+  context 'Menu: Validate General Output Checker' do
     before(:each) do
-      allow(subject).to receive(:gets).and_return("1", "quit")
+      allow(subject).to receive(:gets).and_return("quit")
     end
 
     it 'verifies hello world' do
@@ -22,7 +21,7 @@ describe AddressChecker do
 
   end
 
-  context 'Menu: Handle User Input' do
+  context 'Menu: Validate User Input' do
     before(:each) do
       allow(subject).to receive(:gets).and_return("biddly","quit")
     end
@@ -30,7 +29,22 @@ describe AddressChecker do
     it 'checks error when incorrect input' do
       expect{subject.main_menu}.to output(include("Error: Input not found. Please either type a number or 'quit'")).to_stdout
     end
+
   end
+
+  # context 'Menu Selection: Add Addresses Manually' do
+  #   before(:each) do
+  #     allow(subject).to receive(:gets).and_return("1","0xa95aea385130718be87b380b419eeac8da40de55", "0xa95aea385130718be87b380b419eeac8da40de55", "quit", "quit")
+  #   end
+
+  #   it 'checks if manual input is triggered when input is 1' do
+  #     expect(subject).to receive(:handle_manual_address_input)
+  #     subject.main_menu
+  #   end
+
+  # end
+
+
 
   context 'User Inputting Address: Incorrect Details Provided' do
 
@@ -41,7 +55,7 @@ describe AddressChecker do
     it 'Throws error if there is < 2 addresses provided' do
       
       expect do
-        subject.handle_manual__address_input
+        subject.handle_manual_address_input
       end.to output(include("Add at least 2 Addresses, hit enter after each address, type 'quit' when done", "Error: Please add at least 2 addresses")).to_stdout 
       output().to_stdout 
     end
@@ -54,23 +68,17 @@ describe AddressChecker do
     end
 
     it 'After input, there should be at least 2 addresses stored to operate tasks on' do
-      subject.input_origin_addresses_manually("y")
+      subject.handle_manual_address_input
       expect(subject.origin_addresses.length).to be > 1
     end
-
 
   end
 
   context 'User Inputting Address: General Checks' do
- 
-    it 'if input is not y or n for manual address input, print error' do      
-      expect do
-        subject.input_origin_addresses_manually("h")
-      end.to output("Please only enter 'y' or 'n' into 'input_origin_addresses_manually'").to_stdout 
-    end
+
 
     it 'If user wants to use default addresses, make sure origin_addresses equals my default 2 addresses' do
-      subject.input_origin_addresses_manually("n")
+      subject.use_default_addresses
       expect(subject.origin_addresses).to eq ["0x72140C1886f8F2Dd932DCe06795901F8FB6378a7","0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11" ]
     end
 
