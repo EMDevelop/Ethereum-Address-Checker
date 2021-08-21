@@ -8,16 +8,17 @@ describe AddressChecker do
 
   context 'Menu: Validate General Output Checker' do
     before(:each) do
-      allow(subject).to receive(:gets).and_return("quit")
+      allow(subject).to receive(:gets).and_return("3", "quit")
     end
 
-    it 'verifies hello world' do
+    it 'Verifies hello world' do
       expect {subject.main_menu}.to output(include('Welcome to the Ethereum Address Checker','Thanks for using the Ethereum Address Checker' )).to_stdout
     end
 
     it 'Ensures prompt for Adding Address' do 
       expect {subject.main_menu}.to output(include('Welcome to the Ethereum Address Checker','Main Menu: type number + hit enter', 'Add address manually', 'Test with dummy address' )).to_stdout
     end
+
 
   end
 
@@ -26,50 +27,74 @@ describe AddressChecker do
       allow(subject).to receive(:gets).and_return("biddly","quit")
     end
 
-    it 'checks error when incorrect input' do
+    it 'Check Error Thrown:  when incorrect input' do
       expect{subject.main_menu}.to output(include("Error: Input not found. Please either type a number or 'quit'")).to_stdout
     end
 
   end
 
-  # context 'Menu Selection: Add Addresses Manually' do
-  #   before(:each) do
-  #     allow(subject).to receive(:gets).and_return("1","0xa95aea385130718be87b380b419eeac8da40de55", "0xa95aea385130718be87b380b419eeac8da40de55", "quit", "quit")
-  #   end
+  context 'Menu Selection: Add Addresses Manually' do
+    before(:each) do
+      allow(subject).to receive(:gets).and_return("1","0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", "0xa95aea385130718be87b380b419eeac8da40de55", "quit", "quit")
+    end
 
-  #   it 'checks if manual input is triggered when input is 1' do
-  #     expect(subject).to receive(:handle_manual_address_input)
-  #     subject.main_menu
-  #   end
+    it 'Checks if manual input is triggered when input is 1' do
+      expect(subject).to receive(:handle_manual_address_input)
+      subject.main_menu
+    end
 
-  # end
+  end
 
+  context 'Menu Selection: 3. Show current addresses' do
+    before(:each) do
+      allow(subject).to receive(:gets).and_return("3","quit")
+    end
+
+    it 'Check Warning Thrown: if no addresses exist' do
+      expect do 
+        subject.show_origin_addresses
+      end.to output("Warning: No Addresses Exist, add your own or use our defaults\n").to_stdout
+    end
+
+  end
 
 
   context 'User Inputting Address: Incorrect Details Provided' do
 
     before(:each) do
-      allow(subject).to receive(:gets).and_return("0xa95aea385130718be87b380b419eeac8da40de55", "quit","0xa95aea385130718be87b380b419eeac8da40de55", "quit" )
+      allow(subject).to receive(:gets).and_return("0xa95aea385130718be87b380b419eeac8da40de55", "quit","0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", "quit" )
     end
 
-    it 'Throws error if there is < 2 addresses provided' do
+    it 'Check Error Thrown: if there is < 2 addresses provided' do
       
       expect do
         subject.handle_manual_address_input
       end.to output(include("Add at least 2 Addresses, hit enter after each address, type 'quit' when done", "Error: Please add at least 2 addresses")).to_stdout 
-      output().to_stdout 
     end
   end
 
   context 'User Inputting Address: Correct Details Provided' do
 
     before(:each) do
-      allow(subject).to receive(:gets).and_return("0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", "0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", "quit" )
+      allow(subject).to receive(:gets).and_return("0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", "0xa95aea385130718be87b380b419eeac8da40de55", "quit" )
     end
 
     it 'After input, there should be at least 2 addresses stored to operate tasks on' do
       subject.handle_manual_address_input
       expect(subject.origin_addresses.length).to be > 1
+    end
+
+  end
+
+  context 'User Inputting Address: Inputs same address twice' do
+    before(:each) do
+      allow(subject).to receive(:gets).and_return("1", "0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", "0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", "0xa95aea385130718be87b380b419eeac8da40de55" ,"quit", "quit" )
+    end
+    
+    it 'Check Error Thrown: If user adds an address that is already stored' do
+      expect do
+        subject.handle_manual_address_input
+      end.to output(include("Error: You've added an address that is already stored, please add unique addresses")).to_stdout 
     end
 
   end

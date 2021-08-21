@@ -43,11 +43,22 @@ class AddressChecker
       end
   end
 
+  def show_origin_addresses
+    if @origin_addresses.length == 0
+      puts "Warning: No Addresses Exist, add your own or use our defaults"
+    else
+      puts green("Addresses Stored")
+      @origin_addresses.each {|address| puts blue(address)}
+    end
+  end
+
   def handle_address_input_outcome(input)
     if @origin_addresses.length >= 2 && input == "quit"
       return 'quit'
     elsif @origin_addresses.length < 2 && input == "quit"
       puts red("Error: Please add at least 2 addresses")
+    elsif @origin_addresses.include?(input.downcase)
+      puts red("Error: You've added an address that is already stored, please add unique addresses")
     else
       check_address_validity(input) ? handle_address_storing(input) : (puts red("Error: Invalid Ethereum Address"))
     end
@@ -90,7 +101,8 @@ class AddressChecker
   def menu_options
     {
       "1"=>{description: "Add address manually",function: method(:handle_manual_address_input)},
-      "2"=>{description: "Test with dummy address", function: method(:use_default_addresses)}
+      "2"=>{description: "Test with dummy address", function: method(:use_default_addresses)},
+      "3"=>{description: "Show current addresses", function: method(:show_origin_addresses)},
     }
   end
 
