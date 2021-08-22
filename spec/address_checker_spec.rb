@@ -58,6 +58,19 @@ describe AddressChecker do
 
   end
 
+  # 
+  context 'Menu Merge.. Show new options after successful step 1/2' do
+    before(:each) do
+      allow(subject).to receive(:gets).and_return("1","0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", "0xa95aea385130718be87b380b419eeac8da40de55", "quit", "quit")
+    end
+
+    it 'New Menu Option appears' do 
+      expect {subject.main_menu}.to output(include('Welcome to the Ethereum Address Checker','Main Menu: type number + hit enter', 'Add address manually', 'Test with dummy address', 'Fetch transactions' )).to_stdout
+    end
+
+  end
+
+
 
   context 'User Inputting Address: Incorrect Details Provided' do
 

@@ -1,10 +1,25 @@
+require './lib/fetch_data.rb'
+
 class AddressChecker
 
   def initialize
     @origin_addresses = []
+    # @fetch_data = ""
+    @menu_options = {
+      "1"=>{description: "Add address manually", function: method(:handle_manual_address_input)},
+      "2"=>{description: "Test with dummy address", function: method(:use_default_addresses)},
+      "3"=>{description: "Show current addresses", function: method(:show_origin_addresses)},
+    }
+    @fetch_data_menu_options = {
+      "4"=>{description: "Fetch transactions", function: method(:fetch_data)}
+    }
+
+    
   end
 
   attr_reader :origin_addresses
+  attr_reader :menu_options
+  attr_reader :fetch_data
 
   #General 
   def user_input
@@ -33,6 +48,7 @@ class AddressChecker
   def use_default_addresses
     @origin_addresses = ["0x72140C1886f8F2Dd932DCe06795901F8FB6378a7","0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11"]
     puts green("Using default Ethereum Addresses")
+    merge_to_menu_options
   end
 
   def handle_manual_address_input 
@@ -72,6 +88,7 @@ class AddressChecker
     else
       puts green("Added, you now have #{@origin_addresses.length} addresses")
       puts yellow("Keep adding or type 'quit' to go back to Menu")
+      merge_to_menu_options
     end
   end
 
@@ -93,18 +110,11 @@ class AddressChecker
 
   def display_menu_options 
     display_heading("Main Menu: type number + hit enter")
-    menu_options.each { |option_number, option_description| 
+    @menu_options.each { |option_number, option_description| 
       puts "#{option_number}. #{option_description[:description]}"
     }
   end
 
-  def menu_options
-    {
-      "1"=>{description: "Add address manually",function: method(:handle_manual_address_input)},
-      "2"=>{description: "Test with dummy address", function: method(:use_default_addresses)},
-      "3"=>{description: "Show current addresses", function: method(:show_origin_addresses)},
-    }
-  end
 
   def handle_menu_input(input)
     if !is_menu_input_valid?(input)
@@ -114,12 +124,28 @@ class AddressChecker
       puts "Thanks for using the Ethereum Address Checker"
       return 'quit'
     else
-      menu_options[input][:function].call
+      @menu_options[input][:function].call
     end
   end
 
   def is_menu_input_valid?(input)
-    (menu_options.key?(input) || input == 'quit') ? true : false
+    (@menu_options.key?(input) || input == 'quit') ? true : false
   end
-  
+
+  def merge_to_menu_options
+    @menu_options =  @menu_options.merge!(@fetch_data_menu_options)
+  end
+
+  def fetch_data
+    #code
+  end
+
+  # def create_class_instance
+  #   @origin_addresses = ["this", "is", "a", "test"]
+  #   @fetch_data = FetchData.new(@origin_addresses)
+  # end
+
+  # def show_new_class_data
+  #   puts @fetch_data.data
+  # end
 end
