@@ -80,11 +80,9 @@ describe AddressChecker do
       allow(subject).to receive(:gets).and_return("2","4","quit")
     end
 
-    it 'Check object created' do
-
+    it 'Check instance holds dummy addresses' do
       subject.main_menu
-      expect(subject.fetch_transaction).to be_a FetchTransaction
-      
+      expect(subject.fetch_transaction.origin_addresses).to eq(["0x72140C1886f8F2Dd932DCe06795901F8FB6378a7","0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11"])
     end
 
   end

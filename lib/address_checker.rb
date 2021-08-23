@@ -136,7 +136,7 @@ class AddressChecker
   end
 
   def fetch_transactions
-    @fetch_transaction = FetchTransaction.new
+    @fetch_transaction = FetchTransaction.new(@origin_addresses)
   end
 
   # def create_class_instance

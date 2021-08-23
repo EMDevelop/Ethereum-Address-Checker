@@ -1,9 +1,9 @@
 class FetchTransaction 
 
-#  def initialize(data)
-#   @data = data
-#  end
+ def initialize(addresses)
+  @origin_addresses = addresses
+ end
 
-#  attr_reader :data
+ attr_reader :origin_addresses
 
 end
