@@ -1,4 +1,4 @@
-require './lib/fetch_data.rb'
+require './lib/fetch_transaction.rb'
 
 class AddressChecker
 
@@ -11,15 +11,14 @@ class AddressChecker
       "3"=>{description: "Show current addresses", function: method(:show_origin_addresses)},
     }
     @fetch_data_menu_options = {
-      "4"=>{description: "Fetch transactions", function: method(:fetch_data)}
+      "4"=>{description: "Fetch transactions", function: method(:fetch_transactions)}
     }
-
-    
+    @fetch_transaction
   end
 
   attr_reader :origin_addresses
   attr_reader :menu_options
-  attr_reader :fetch_data
+  attr_reader :fetch_transaction
 
   #General 
   def user_input
@@ -133,11 +132,11 @@ class AddressChecker
   end
 
   def merge_to_menu_options
-    @menu_options =  @menu_options.merge!(@fetch_data_menu_options)
+    @menu_options.merge!(@fetch_data_menu_options)
   end
 
-  def fetch_data
-    #code
+  def fetch_transactions
+    @fetch_transaction = FetchTransaction.new
   end
 
   # def create_class_instance

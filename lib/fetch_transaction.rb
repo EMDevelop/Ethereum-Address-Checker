@@ -1,4 +1,4 @@
-# class FetchData 
+class FetchTransaction 
 
 #  def initialize(data)
 #   @data = data
@@ -6,4 +6,4 @@
 
 #  attr_reader :data
 
-# end
+end
