@@ -1,9 +1,11 @@
 class FetchTransaction 
 
- def initialize(addresses)
-  @origin_addresses = addresses
+ def initialize (address)
+  @origin_addresses = address
  end
 
  attr_reader :origin_addresses
 
 end
+
+

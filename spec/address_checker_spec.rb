@@ -55,7 +55,7 @@ describe AddressChecker do
     it 'Check Warning Thrown: if no addresses exist' do
       expect do 
         subject.show_origin_addresses
-      end.to output("Warning: No Addresses Exist, add your own or use our defaults\n").to_stdout
+      end.to output(include("Warning: No Addresses Exist, add your own or use our defaults")).to_stdout
     end
 
   end
@@ -75,14 +75,39 @@ describe AddressChecker do
 
   end
 
-  context 'Menu Selection: 4. Fetch address when selection is 4' do
+  context 'Menu Selection: Fetch transactions' do
+    before(:each) do
+      allow(subject).to receive(:gets).and_return("2","5","quit")
+    end
+
+    it 'Check new fetch transaction class instance holds dummy addresses' do
+      subject.main_menu
+      expect(subject.fetch_transaction.origin_addresses).to eq(["0x72140C1886f8F2Dd932DCe06795901F8FB6378a7","0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11"])
+    end
+
+  end
+
+  context 'Menu Selection: Fetch transactions' do
+    before(:each) do
+      allow(subject).to receive(:gets).and_return("2","4","5","quit")
+    end
+
+    it 'Check function returns if there are no addresses' do
+      expect do
+        subject.main_menu
+      end.to output(include("Error: No addresses defined, please either add addresses or use the defaults")).to_stdout 
+    end
+
+  end
+
+  context 'Menu Selection: Delete Stored Addresses' do
     before(:each) do
       allow(subject).to receive(:gets).and_return("2","4","quit")
     end
 
-    it 'Check instance holds dummy addresses' do
+    it 'Set addresses to empty array when delete addresses selected. ' do
       subject.main_menu
-      expect(subject.fetch_transaction.origin_addresses).to eq(["0x72140C1886f8F2Dd932DCe06795901F8FB6378a7","0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11"])
+      expect(subject.origin_addresses).to eq([])
     end
 
   end

@@ -8,10 +8,11 @@ class AddressChecker
     @menu_options = {
       "1"=>{description: "Add address manually", function: method(:handle_manual_address_input)},
       "2"=>{description: "Test with dummy address", function: method(:use_default_addresses)},
-      "3"=>{description: "Show current addresses", function: method(:show_origin_addresses)},
+      "3"=>{description: "Show stored addresses", function: method(:show_origin_addresses)},
+      "4"=>{description: "Delete stored addresses", function: method(:delete_addresses)},
     }
     @fetch_data_menu_options = {
-      "4"=>{description: "Fetch transactions", function: method(:fetch_transactions)}
+      "5"=>{description: "Fetch transactions", function: method(:fetch_transactions)}
     }
     @fetch_transaction
   end
@@ -37,12 +38,17 @@ class AddressChecker
 
   def display_heading(text)
     5.times { print "\n" }
-    puts blue(text)
+    puts white(text)
     dash_length = text.length
     (1..dash_length).each {|dash| print dash == dash_length ? "-\n" : "-"}
   end
 
-  #Add address
+
+
+  def delete_addresses
+     @origin_addresses = []
+     puts green("Successfully deleted addresses")
+  end
 
   def use_default_addresses
     @origin_addresses = ["0x72140C1886f8F2Dd932DCe06795901F8FB6378a7","0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11"]
@@ -51,7 +57,7 @@ class AddressChecker
   end
 
   def handle_manual_address_input 
-      puts blue("Add at least 2 Addresses, hit enter after each address, type 'quit' when done")
+      puts white("Add at least 2 Addresses, hit enter after each address, type 'quit' when done")
       while true do
         address = user_input
         break if handle_address_input_outcome(address) == 'quit'
@@ -60,10 +66,10 @@ class AddressChecker
 
   def show_origin_addresses
     if @origin_addresses.length == 0
-      puts "Warning: No Addresses Exist, add your own or use our defaults"
+      puts yellow("Warning: No Addresses Exist, add your own or use our defaults")
     else
       puts green("Addresses Stored")
-      @origin_addresses.each {|address| puts blue(address)}
+      @origin_addresses.each {|address| puts white(address)}
     end
   end
 
@@ -136,15 +142,14 @@ class AddressChecker
   end
 
   def fetch_transactions
+    if @origin_addresses.length < 2
+      puts red("Error: No addresses defined, please either add addresses or use the defaults")
+      return
+    end
     @fetch_transaction = FetchTransaction.new(@origin_addresses)
   end
 
-  # def create_class_instance
-  #   @origin_addresses = ["this", "is", "a", "test"]
-  #   @fetch_data = FetchData.new(@origin_addresses)
-  # end
-
-  # def show_new_class_data
-  #   puts @fetch_data.data
-  # end
 end
+
+# ting = FetchTransaction.new([1,2]) 
+# puts ting.origin_addresses 
