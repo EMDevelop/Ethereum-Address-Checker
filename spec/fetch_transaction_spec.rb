@@ -24,6 +24,10 @@ describe FetchTransaction do
       expect(fetch).to respond_to(:fetch_transactions)
     end
 
+    it 'Checks the user is informed that the transactions are being fetched' do
+      expect {fetch.fetch_transactions}.to output(include('Fetching Transactions')).to_stdout
+    end
+
 
   end
 

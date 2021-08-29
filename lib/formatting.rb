@@ -13,6 +13,14 @@ module Formatting
     (1..dash_length).each {|dash| print dash == dash_length ? "-\n" : "-"}
   end
 
+  def print_begin_process(message)
+    puts yellow("~~~~~~ #{message} ~~~~~~")
+  end
+
+  def print_complete_process(message)
+
+  end
+
   private
 
   def colorize(text, color_code)

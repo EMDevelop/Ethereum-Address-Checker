@@ -1,4 +1,7 @@
+require './lib/formatting'
 class FetchTransaction 
+
+  include Formatting
 
   def initialize (address)
    @origin_addresses = address
@@ -9,17 +12,9 @@ class FetchTransaction
   attr_reader :transaction_history
  
   def fetch_transactions
-    
+    print_begin_process("Fetching Transactions")
   end
  
-  def print_begin_process(message)
-    
-  end
-
-  def print_complete_process(message)
-
-  end
-
 end
 
 
