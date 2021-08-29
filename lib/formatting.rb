@@ -18,7 +18,7 @@ module Formatting
   end
 
   def print_complete_process(message)
-
+    puts green("✓✓✓✓✓ #{message} ✓✓✓✓✓")
   end
 
   private

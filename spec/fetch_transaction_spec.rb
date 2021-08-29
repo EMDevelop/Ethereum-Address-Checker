@@ -29,6 +29,11 @@ describe FetchTransaction do
     end
 
 
+    it 'Checks the user is informed that the transactions are complete' do
+      expect {fetch.fetch_transactions}.to output(include('COMPLETED: Fetch Transaction')).to_stdout
+    end
+
+
   end
 
   context 'Checking console output letting user know that processes are happening' do

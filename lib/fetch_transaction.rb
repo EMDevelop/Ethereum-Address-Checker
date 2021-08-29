@@ -13,8 +13,7 @@ class FetchTransaction
  
   def fetch_transactions
     print_begin_process("Fetching Transactions")
+    print_complete_process("COMPLETED: Fetch Transaction")
   end
  
 end
-
-
