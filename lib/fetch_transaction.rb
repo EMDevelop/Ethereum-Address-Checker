@@ -12,8 +12,23 @@ class FetchTransaction
   attr_reader :transaction_history
  
   def fetch_transactions
-    print_begin_process("Fetching Transactions")
-    print_complete_process("COMPLETED: Fetch Transaction")
+    print_begin_main_process("Fetching Transactions")
+    transaction_loop
+    print_complete_main_process("COMPLETED: Fetch Transaction")
+  end
+
+  def transaction_loop
+    create_keys(@origin_addresses)
+  end
+
+  private
+
+  def create_keys(addresses)
+    addresses.each { |address|
+        if !@transaction_history[address] 
+          @transaction_history[address] = {"hash" => [], "from" => [], "to" => [], "coin" =>[]}
+        end
+    }
   end
  
 end

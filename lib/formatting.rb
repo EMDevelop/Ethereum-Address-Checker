@@ -13,12 +13,20 @@ module Formatting
     (1..dash_length).each {|dash| print dash == dash_length ? "-\n" : "-"}
   end
 
-  def print_begin_process(message)
+  def print_begin_main_process(message)
     puts yellow("~~~~~~ #{message} ~~~~~~")
   end
 
-  def print_complete_process(message)
+  def print_complete_main_process(message)
     puts green("✓✓✓✓✓ #{message} ✓✓✓✓✓")
+  end
+
+  def print_begin_sub_process(message)
+    puts yellow("~#{message} ~")
+  end
+
+  def print_complete_sub_process(message)
+    puts green("✓ #{message} ✓")
   end
 
   private
