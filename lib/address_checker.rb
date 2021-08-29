@@ -1,6 +1,9 @@
 require './lib/fetch_transaction.rb'
+require './lib/formatting'
 
 class AddressChecker
+
+  include Formatting
 
   def initialize
     @origin_addresses = []
@@ -105,12 +108,9 @@ class AddressChecker
     end
   end
 
-
-
   def is_menu_input_valid?(input)
     (@menu_options.key?(input) || input == 'quit') ? true : false
   end
-
 
   def handle_address_storing(input)
     @origin_addresses << input
@@ -128,26 +128,8 @@ class AddressChecker
     @menu_options.merge!(@fetch_data_menu_options)
   end
 
-    #General 
   def user_input
      gets.chomp
-  end
-
-  def colorize(text, color_code)
-    "\e[#{color_code}m#{text}\e[0m"
-  end
-
-  def red(text); colorize(text, 31); end
-  def green(text); colorize(text, 32); end
-  def yellow(text); colorize(text, 33); end
-  def blue(text); colorize(text, 34); end
-  def white(text); colorize(text, 37); end
-
-  def display_heading(text)
-    5.times { print "\n" }
-    puts white(text)
-    dash_length = text.length
-    (1..dash_length).each {|dash| print dash == dash_length ? "-\n" : "-"}
   end
 
 end
