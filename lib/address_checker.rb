@@ -21,29 +21,13 @@ class AddressChecker
   attr_reader :menu_options
   attr_reader :fetch_transaction
 
-  #General 
-  def user_input
-     gets.chomp
+  def main_menu
+    puts "Welcome to the Ethereum Address Checker"
+    while true do
+      display_menu_options
+      break if handle_menu_input(user_input) == 'quit'
+    end
   end
-
-  def colorize(text, color_code)
-    "\e[#{color_code}m#{text}\e[0m"
-  end
-
-  def red(text); colorize(text, 31); end
-  def green(text); colorize(text, 32); end
-  def yellow(text); colorize(text, 33); end
-  def blue(text); colorize(text, 34); end
-  def white(text); colorize(text, 37); end
-
-  def display_heading(text)
-    5.times { print "\n" }
-    puts white(text)
-    dash_length = text.length
-    (1..dash_length).each {|dash| print dash == dash_length ? "-\n" : "-"}
-  end
-
-
 
   def delete_addresses
      @origin_addresses = []
@@ -85,18 +69,6 @@ class AddressChecker
     end
   end
 
-  def handle_address_storing(input)
-    @origin_addresses << input
-    if @origin_addresses.length == 1 
-      print green("Added ")
-      puts red("you need 1 more address") 
-    else
-      puts green("Added, you now have #{@origin_addresses.length} addresses")
-      puts yellow("Keep adding or type 'quit' to go back to Menu")
-      merge_to_menu_options
-    end
-  end
-
   def check_address_validity(address)
     address.downcase!
     valid_address = true
@@ -104,14 +76,15 @@ class AddressChecker
     valid_address
   end
 
-  #Menu
-  def main_menu
-    puts "Welcome to the Ethereum Address Checker"
-    while true do
-      display_menu_options
-      break if handle_menu_input(user_input) == 'quit'
+  def fetch_transactions
+    if @origin_addresses.length < 2
+      puts red("Error: No addresses defined, please either add addresses or use the defaults")
+      return
     end
+    @fetch_transaction = FetchTransaction.new(@origin_addresses)
   end
+
+  private
 
   def display_menu_options 
     display_heading("Main Menu: type number + hit enter")
@@ -119,7 +92,6 @@ class AddressChecker
       puts "#{option_number}. #{option_description[:description]}"
     }
   end
-
 
   def handle_menu_input(input)
     if !is_menu_input_valid?(input)
@@ -133,23 +105,49 @@ class AddressChecker
     end
   end
 
+
+
   def is_menu_input_valid?(input)
     (@menu_options.key?(input) || input == 'quit') ? true : false
+  end
+
+
+  def handle_address_storing(input)
+    @origin_addresses << input
+    if @origin_addresses.length == 1 
+      print green("Added ")
+      puts red("you need 1 more address") 
+    else
+      puts green("Added, you now have #{@origin_addresses.length} addresses")
+      puts yellow("Keep adding or type 'quit' to go back to Menu")
+      merge_to_menu_options
+    end
   end
 
   def merge_to_menu_options
     @menu_options.merge!(@fetch_data_menu_options)
   end
 
-  def fetch_transactions
-    if @origin_addresses.length < 2
-      puts red("Error: No addresses defined, please either add addresses or use the defaults")
-      return
-    end
-    @fetch_transaction = FetchTransaction.new(@origin_addresses)
+    #General 
+  def user_input
+     gets.chomp
+  end
+
+  def colorize(text, color_code)
+    "\e[#{color_code}m#{text}\e[0m"
+  end
+
+  def red(text); colorize(text, 31); end
+  def green(text); colorize(text, 32); end
+  def yellow(text); colorize(text, 33); end
+  def blue(text); colorize(text, 34); end
+  def white(text); colorize(text, 37); end
+
+  def display_heading(text)
+    5.times { print "\n" }
+    puts white(text)
+    dash_length = text.length
+    (1..dash_length).each {|dash| print dash == dash_length ? "-\n" : "-"}
   end
 
 end
-
-# ting = FetchTransaction.new([1,2]) 
-# puts ting.origin_addresses 

@@ -35,18 +35,18 @@ describe AddressChecker do
   # Currently failing test - Unsure as to why
   # It worked while my hash for manu_options was stored inside of a method 'menu_options'
   # Now failing when menu_options is a property on a class. 
-  # context 'Menu Selection: Add Addresses Manually' do
-  #   before(:each) do
-  #     allow(subject).to receive(:gets).and_return("1","0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", "0xa95aea385130718be87b380b419eeac8da40de55", "quit", "quit")
-  #   end
+  context 'Menu Selection: Add Addresses Manually' do
+    before(:each) do
+      allow(subject).to receive(:gets).and_return("1","0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", "0xa95aea385130718be87b380b419eeac8da40de55", "quit", "quit")
+    end
 
-  #   it 'Checks if manual input is triggered when input is 1' do
-  #     expect(subject).to receive(:handle_manual_address_input)
-  #     subject.main_menu
-  #   end
-
-  # end
-
+    xit 'Checks if manual input is triggered when input is 1' do
+      subject.main_menu
+      expect(subject).to receive(:handle_manual_address_input)
+    end
+    
+  end
+  
   context 'Menu Selection: 3. Show current addresses' do
     before(:each) do
       allow(subject).to receive(:gets).and_return("3","quit")
