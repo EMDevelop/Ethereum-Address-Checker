@@ -11,6 +11,11 @@ describe FetchTransaction do
       expect(fetch.origin_addresses).to eq ["addressA", "addressB"]
     end
 
+    it 'Checks an empty object exists to store transaction history' do
+      expect(fetch.transaction_history).to be_instance_of(Hash)
+    end
+
   end
+
 
 end
