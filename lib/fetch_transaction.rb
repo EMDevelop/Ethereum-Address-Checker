@@ -4,7 +4,7 @@ class FetchTransaction
   @origin_addresses = address
  end
 
- attr_reader :origin_addresses
+ attr_accessor :origin_addresses
 
 end
 
