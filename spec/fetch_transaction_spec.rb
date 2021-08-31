@@ -5,6 +5,18 @@ describe FetchTransaction do
   let(:fetch) { FetchTransaction.new(["0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", "0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11"]) }
   let(:address) { ["0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", "0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11"] }
   let(:transactions) { {"0x72140C1886f8F2Dd932DCe06795901F8FB6378a7"=>{"hash"=>[], "from"=>[], "to"=>[], "coin"=>[]}, "0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11"=>{"hash"=>[], "from"=>[], "to"=>[], "coin"=>[]}}}
+  let(:json_string) { {
+  "status": "1",
+  "message": "OK",
+  "result": [
+    {
+      "key1": "value1"
+    },
+    {
+      "key2": "value2"
+    }
+  ]
+}}
 
   context 'Checking initial setup of the Fetch Transaction class' do
 
@@ -35,18 +47,17 @@ describe FetchTransaction do
       expect {fetch.fetch_transactions}.to output(include('COMPLETED: Fetch Transaction')).to_stdout
     end
 
-    it 'Checks that loop transactions has access to the transaction_array' do
-      expect(fetch).to respond_to(:transaction_loop)
-    end
-
     it 'Checks that a hash key is created by looping through transactions' do
-      fetch.transaction_loop
+      fetch.fetch_transactions
       expect(fetch.transaction_history).to eq transactions
     end
 
 
     context 'Fetch Ethereum Chain Transactions' do
-
+      
+      it 'checks for a successful call to Etherscan' do
+        expect(fetch.etherscan_api(:eth)).to eq "OK"
+      end
      
     end
 

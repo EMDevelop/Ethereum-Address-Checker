@@ -1,9 +1,5 @@
 require 'address_checker'
 
-#irb -r './lib/address_checker.rb'
-#a = AddressChecker.new
-
-
 describe AddressChecker do   
 
   context 'Menu: Validate General Output Checker' do
