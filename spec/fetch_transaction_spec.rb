@@ -33,12 +33,12 @@ describe FetchTransaction do
 
   context 'Fetching Transactions' do
 
-    
+    let(:api_fail_max_limit) { '{"status":"0", "message":"NOTOK"}' }
 
     it 'Checks the user is informed that the transactions are being fetched' do
       allow(fetch).to receive(:send_request).and_return('ok')
       allow(fetch).to receive(:convert_response_to_hash).and_return('ok')
-      expect {fetch.fetch_transactions}.to output(include('Fetching Transactions', 'COMPLETED: Fetch Transaction')).to_stdout
+      expect {fetch.fetch_transactions}.to output(include('Fetching Transactions')).to_stdout
     end
 
     it 'Checks that a hash key is created by looping through transactions' do
@@ -46,21 +46,14 @@ describe FetchTransaction do
       allow(fetch).to receive(:convert_response_to_hash).and_return('ok')
       fetch.fetch_transactions
       expect(fetch.transaction_history).to eq transactions
+      pp fetch.transaction_history 
     end
 
-
-    # context 'Fetch Ethereum Chain Transactions' do
-      
-    #   it 'checks for a successful call to Etherscan' do
-    #     address = "0x72140C1886f8F2Dd932DCe06795901F8FB6378a7"
-    #     expect(fetch.etherscan_api(:eth, address)).to eq "OK"
-    #   end
-     
-    # end
-
-
-
-
+    #https://info.etherscan.com/api-return-errors/
+    it 'Checks for an invalid response' do
+      allow(fetch).to receive(:send_request).and_return(api_fail_max_limit)
+      expect { fetch.fetch_transactions }.to raise_error "API Error: you may only send 5 calls per second"
+    end
   end
 
   context 'Checking console output letting user know that processes are happening' do

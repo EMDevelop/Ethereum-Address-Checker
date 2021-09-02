@@ -36,11 +36,6 @@ describe AddressChecker do
       allow(subject).to receive(:gets).and_return("1","0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", "0xa95aea385130718be87b380b419eeac8da40de55", "quit", "quit")
     end
 
-    xit 'Checks if manual input is triggered when input is 1' do
-      subject.main_menu
-      expect(subject).to receive(:handle_manual_address_input)
-    end
-    
   end
   
   context 'Menu Selection: 3. Show current addresses' do
