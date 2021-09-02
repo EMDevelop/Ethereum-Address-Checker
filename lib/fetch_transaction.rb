@@ -7,8 +7,8 @@ require 'dotenv'
 class FetchTransaction 
 
   include Formatting
-  # Dotenv.load
-  # key = ENV["KEY"]
+  Dotenv.load
+
 
   def initialize (address)
    @origin_addresses = address
@@ -49,7 +49,7 @@ class FetchTransaction
 
   def generate_url(coin_type, address)
     action = coin_type == :eth ? "txlist" : "tokentx"
-    "http://api.etherscan.io/api?module=account&action=#{action}&address=#{address}&startblock=0&endblock=999999999&sort=asc&apikey=FCT8FVAED7SPWI634Z1653CSAF38RFGBFB"
+    "http://api.etherscan.io/api?module=account&action=#{action}&address=#{address}&startblock=0&endblock=999999999&sort=asc&apikey=#{ENV["KEY"]}"
   end
 
   def create_keys(addresses)
