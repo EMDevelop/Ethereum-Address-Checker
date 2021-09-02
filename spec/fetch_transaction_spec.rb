@@ -33,37 +33,32 @@ describe FetchTransaction do
 
   context 'Fetching Transactions' do
 
-
-    it 'Checks that the fetch transaction method exists' do
-      expect(fetch).to respond_to(:fetch_transactions)
-    end
+    
 
     it 'Checks the user is informed that the transactions are being fetched' do
-      expect {fetch.fetch_transactions}.to output(include('Fetching Transactions')).to_stdout
-    end
-
-
-    it 'Checks the user is informed that the transactions are complete' do
-      expect {fetch.fetch_transactions}.to output(include('COMPLETED: Fetch Transaction')).to_stdout
+      allow(fetch).to receive(:send_request).and_return('ok')
+      allow(fetch).to receive(:convert_response_to_hash).and_return('ok')
+      expect {fetch.fetch_transactions}.to output(include('Fetching Transactions', 'COMPLETED: Fetch Transaction')).to_stdout
     end
 
     it 'Checks that a hash key is created by looping through transactions' do
+      allow(fetch).to receive(:send_request).and_return('ok')
+      allow(fetch).to receive(:convert_response_to_hash).and_return('ok')
       fetch.fetch_transactions
       expect(fetch.transaction_history).to eq transactions
     end
 
 
-    context 'Fetch Ethereum Chain Transactions' do
+    # context 'Fetch Ethereum Chain Transactions' do
       
-      it 'checks for a successful call to Etherscan' do
-        expect(fetch.etherscan_api(:eth)).to eq "OK"
-      end
+    #   it 'checks for a successful call to Etherscan' do
+    #     address = "0x72140C1886f8F2Dd932DCe06795901F8FB6378a7"
+    #     expect(fetch.etherscan_api(:eth, address)).to eq "OK"
+    #   end
      
-    end
-
-    # context 'Fetch ERC-20 Transactions' do
-
     # end
+
+
 
 
   end
