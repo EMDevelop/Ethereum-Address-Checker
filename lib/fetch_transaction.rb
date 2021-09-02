@@ -34,6 +34,7 @@ class FetchTransaction
 
   def handle_api_response(coin_type, address, response)
     raise "API Error: you may only send 5 calls per second" if response["status"] == "0" && response["message"] == "NOTOK"
+    raise "API Error: Invalid Ethereum address" if response["status"] == "0" && response["message"] == "No transactions found"
   end
 
   def convert_response_to_hash(response)

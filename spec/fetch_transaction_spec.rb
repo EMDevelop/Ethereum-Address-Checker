@@ -34,6 +34,7 @@ describe FetchTransaction do
   context 'Fetching Transactions' do
 
     let(:api_fail_max_limit) { '{"status":"0", "message":"NOTOK"}' }
+    let(:api_fail_wrong_address) { '{"status":"0", "message":"No transactions found"}' }
 
     it 'Checks the user is informed that the transactions are being fetched' do
       allow(fetch).to receive(:send_request).and_return('ok')
@@ -54,6 +55,12 @@ describe FetchTransaction do
       allow(fetch).to receive(:send_request).and_return(api_fail_max_limit)
       expect { fetch.fetch_transactions }.to raise_error "API Error: you may only send 5 calls per second"
     end
+
+    it 'Checks if a valid ethereum address was used in the request' do
+      allow(fetch).to receive(:send_request).and_return(api_fail_wrong_address)
+      expect { fetch.fetch_transactions }.to raise_error "API Error: Invalid Ethereum address"
+    end
+
   end
 
   context 'Checking console output letting user know that processes are happening' do
