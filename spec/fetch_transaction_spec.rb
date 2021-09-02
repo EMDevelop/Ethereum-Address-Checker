@@ -35,6 +35,7 @@ describe FetchTransaction do
 
     let(:api_fail_max_limit) { '{"status":"0", "message":"NOTOK"}' }
     let(:api_fail_wrong_address) { '{"status":"0", "message":"No transactions found"}' }
+    let(:api_success) { '{"status":"1"}' }
 
     it 'Checks the user is informed that the transactions are being fetched' do
       allow(fetch).to receive(:send_request).and_return('ok')
@@ -59,6 +60,12 @@ describe FetchTransaction do
     it 'Checks if a valid ethereum address was used in the request' do
       allow(fetch).to receive(:send_request).and_return(api_fail_wrong_address)
       expect { fetch.fetch_transactions }.to raise_error "API Error: Invalid Ethereum address"
+    end
+
+    #As it will crash if it is not fine I can use include, otherwise i couldn't
+    it 'Informs user of a successful API call' do
+      allow(fetch).to receive(:send_request).and_return(api_success)
+      expect { fetch.fetch_transactions }.to output(include("✓ COMPLETED: Fetching")).to_stdout
     end
 
   end
