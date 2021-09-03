@@ -85,6 +85,7 @@ class AddressChecker
       return
     end
     @fetch_transaction = FetchTransaction.new(@origin_addresses)
+    @fetch_transaction.fetch_transactions
   end
 
   private
