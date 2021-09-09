@@ -83,11 +83,11 @@ describe FetchTransaction do
     let(:eth_stored) { {"0x72140C1886f8F2Dd932DCe06795901F8FB6378a7"=>{"0xa61aafe3f30fb54d9fac4536850fdf5a9bfb6ed3345a770bacabc48614b4bea6" => {:from => "0x72140c1886f8f2dd932dce06795901f8fb6378a7", :to => "0x0613cd2076bd432c7a60a1b926b11b17baaafe11", :coin => "Ethereum"} }, "0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11"=>{}} }
     let(:empty) { "" } 
 
-    it 'Stores Ethereum Chain transactions' do
+    xit 'Stores Ethereum Chain transactions' do
       allow(fetch).to receive(:send_request).and_return('ok')
       allow(fetch).to receive(:convert_response_to_hash).and_return('ok')
       allow(fetch).to receive(:store_transactions).with("0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", :eth, eth_transactions)
-      allow(fetch).to receive(:store_transactions)
+      allow(fetch).to receive(:store_transactions).with("0x72140C1886f8F2Dd932DCe06795901F8FB6378a7", :erc20, eth_transactions)
       allow(fetch).to receive(:store_transactions)
       allow(fetch).to receive(:store_transactions)
       fetch.fetch_transactions
