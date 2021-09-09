@@ -3,7 +3,6 @@ require 'rest-client'
 require 'json'
 require 'dotenv'
 
-
 class FetchTransaction 
 
   include Formatting
