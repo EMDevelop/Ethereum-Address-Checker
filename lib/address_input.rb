@@ -1,7 +1,7 @@
 require './lib/fetch_transaction.rb'
 require './lib/formatting'
 
-class AddressChecker
+class AddressInput
 
   include Formatting
 
