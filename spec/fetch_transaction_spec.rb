@@ -19,7 +19,6 @@ describe FetchTransaction do
 
   end
 
-
   context 'Fetching Transactions' do
 
     let(:api_fail_max_limit) { '{"status":"0", "message":"NOTOK"}' }
@@ -43,7 +42,6 @@ describe FetchTransaction do
       expect(fetch.transaction_history).to eq transactions
     end
 
-    #https://info.etherscan.com/api-return-errors/
     it 'Checks for an invalid response' do
       allow(fetch).to receive(:send_request).and_return(api_fail_max_limit)
       expect { fetch.fetch_transactions }.to raise_error "API Error: you may only send 5 calls per second"
@@ -54,7 +52,6 @@ describe FetchTransaction do
       expect { fetch.fetch_transactions }.to raise_error "API Error: Invalid Ethereum address"
     end
 
-    #As it will crash if it is not fine I can use include, otherwise i couldn't
     it 'Informs user of a successful API call' do
       allow(fetch).to receive(:send_request).and_return(api_success)
       expect { fetch.fetch_transactions }.to output(include("✓ COMPLETED: Fetching")).to_stdout

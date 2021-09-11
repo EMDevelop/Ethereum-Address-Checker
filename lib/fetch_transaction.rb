@@ -10,7 +10,7 @@ class FetchTransaction
 
   def initialize (address)
    @origin_addresses = address
-   @transaction_history = {}
+   @transaction_history = {} 
   end
  
   attr_accessor :origin_addresses
@@ -32,8 +32,6 @@ class FetchTransaction
   end
 
   def store_transactions(address,coin_type,transactions)
-    # print transactions
-
     transactions.each { |transaction| 
       @transaction_history[address][transaction["hash"]] = {:from => transaction["from"], :to=> transaction["to"], :coin => coin_type == :eth ? "Ethereum" : transaction["tokenName"] } 
     }

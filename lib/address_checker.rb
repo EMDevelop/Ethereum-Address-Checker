@@ -17,7 +17,7 @@ class AddressChecker
     @fetch_data_menu_options = {
       "5"=>{description: "Fetch transactions", function: method(:fetch_transactions)}
     }
-    @fetch_transaction
+    @fetch_transaction #Data will then be stored in checker.fetch_transaction.transaction_history
   end
 
   attr_reader :origin_addresses
@@ -40,7 +40,7 @@ class AddressChecker
   def use_default_addresses
     @origin_addresses = ["0x72140C1886f8F2Dd932DCe06795901F8FB6378a7","0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11"]
     puts green("Using default Ethereum Addresses")
-    merge_to_menu_options
+    merge_to_menu_options(@fetch_data_menu_options)
   end
 
   def handle_manual_address_input 
@@ -121,12 +121,12 @@ class AddressChecker
     else
       puts green("Added, you now have #{@origin_addresses.length} addresses")
       puts yellow("Keep adding or type 'quit' to go back to Menu")
-      merge_to_menu_options
+      merge_to_menu_options(@fetch_data_menu_options)
     end
   end
 
-  def merge_to_menu_options
-    @menu_options.merge!(@fetch_data_menu_options)
+  def merge_to_menu_options(options)
+    @menu_options.merge!(options)
   end
 
   def user_input
