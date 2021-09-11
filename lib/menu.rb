@@ -18,9 +18,11 @@ class Menu
       "5"=>{description: "Fetch transactions", function: method(:fetch_transactions)}
     }
     @add_address = AddressInput.new
+    @fetch_transaction
   end
 
    attr_reader :menu_options
+   attr_reader :fetch_transaction
 
   def main_menu
     puts "Welcome to the Ethereum Address Checker"
