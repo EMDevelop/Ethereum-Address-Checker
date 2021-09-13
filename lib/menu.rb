@@ -18,7 +18,6 @@ class Menu
       "5"=>{description: "Fetch transactions", function: method(:fetch_transactions)}
     }
     @add_address = AddressInput.new
-    @fetch_transaction
   end
 
    attr_reader :menu_options
@@ -48,10 +47,7 @@ class Menu
   end
 
   def fetch_transactions
-    if @add_address.origin_addresses.length < 2
-      puts red("Error: No addresses defined, please either add addresses or use the defaults")
-      return
-    end
+    check_addresses_exist
     @fetch_transaction = FetchTransaction.new(@add_address.origin_addresses)
     @fetch_transaction.fetch_transactions
   end
@@ -62,6 +58,13 @@ class Menu
   end
 
   private
+
+  def check_addresses_exist 
+    if @add_address.origin_addresses.length < 2
+      puts red("Error: No addresses defined, please either add addresses or use the defaults")
+      return
+    end
+  end
 
   def merge_to_menu_options(options)
     @menu_options.merge!(options)

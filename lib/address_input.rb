@@ -57,15 +57,6 @@ class AddressInput
     valid_address
   end
 
-  def fetch_transactions
-    if @origin_addresses.length < 2
-      puts red("Error: No addresses defined, please either add addresses or use the defaults")
-      return
-    end
-    @fetch_transaction = FetchTransaction.new(@origin_addresses)
-    @fetch_transaction.fetch_transactions
-  end
-
   private
 
   def handle_address_storing(input)
