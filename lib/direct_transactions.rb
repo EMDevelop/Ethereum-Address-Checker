@@ -10,10 +10,16 @@ class DirectTransactions
 
   def analyse_addresses
     loop_origin_addresses
-    @direct_transactions
+    print_direct_transactions
   end
 
   private
+
+  def print_direct_transactions
+    @direct_transactions.each { |from, info|
+      p "#{from} sent #{info[:coin]} to #{info[:to]}. For more info, transaction_hash: #{info[:hash]}"
+    }
+  end
 
   def loop_origin_addresses
     @origin_addresses.each { |origin_address|
@@ -30,7 +36,6 @@ class DirectTransactions
   end
 
   def loop_transaction_hashes(transactions, origin_address, transaction_address)
-    # puts "Comparing #{origin_address} with #{transaction_address} you get \n transactions: #{transactions}"
     transactions.each { | hash, transaction_info | 
       if origin_address == transaction_info[:from] || origin_address == transaction_info[:to]
         add_transaction(hash, transaction_info)

@@ -14,6 +14,10 @@ describe DirectTransactions do
       expect(direct.direct_transactions).to eq direct_transaction
     end
 
+    it 'prints the hash out' do
+      expect {direct.analyse_addresses}.to output(include("address_a sent Ethereum to address_b. For more info, transaction_hash: hashA")).to_stdout
+    end
+    
   end
 
 end
