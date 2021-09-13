@@ -8,9 +8,9 @@ This project can be used to check whether 2 or more Ethereum wallets have made t
 
 - Clone the project `git clone https://github.com/EMDevelop/cryptoAddressWeb.git`
 - Navigate into your new directory `cd cryptoaddressWeb`
-- Open IRB `irb -r './lib/address_checker.rb'`
-- Create a new address checker in irb `checker = AddressChecker.new`
-- Begin the main menu in irb `checker.main_menu`
+- Open IRB `irb -r './lib/menu.rb'`
+- Create a new address checker in irb `checker = Menu.new`
+- Begin the main menu in irb `menu.main_menu`
 - Follow menu instructions, and also:
   - Please use at least 2 Ethereum addresses
   - Please make sure they are valid Ethereum addresses

@@ -6,14 +6,16 @@ class DirectTransactions
     @direct_transactions = {}
   end
 
-  attr_reader :direct_transactions
+  attr_reader :direct_transactions, :origin_addresses, :all_transactions
 
   def analyse_addresses
     loop_origin_addresses
+    p "I ran"
     print_direct_transactions
+    p "I also ran"
   end
 
-  private
+  # private
 
   def print_direct_transactions
     @direct_transactions.each { |from, info|
@@ -23,13 +25,13 @@ class DirectTransactions
 
   def loop_origin_addresses
     @origin_addresses.each { |origin_address|
-      loop_all_transactions(origin_address)
+      loop_all_transactions(origin_address.downcase)
     }
   end
 
   def loop_all_transactions(origin_address)
     @all_transactions.each { |transaction_address, transactions|
-      if transaction_address != origin_address
+      if transaction_address.downcase != origin_address.downcase
         loop_transaction_hashes(transactions, origin_address, transaction_address)
       end 
     }
@@ -37,7 +39,7 @@ class DirectTransactions
 
   def loop_transaction_hashes(transactions, origin_address, transaction_address)
     transactions.each { | hash, transaction_info | 
-      if origin_address == transaction_info[:from] || origin_address == transaction_info[:to]
+      if origin_address.downcase == transaction_info[:from].downcase || origin_address.downcase == transaction_info[:to].downcase
         add_transaction(hash, transaction_info)
       end
     }

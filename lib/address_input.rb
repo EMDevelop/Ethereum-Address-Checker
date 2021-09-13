@@ -60,7 +60,7 @@ class AddressInput
   private
 
   def handle_address_storing(input)
-    @origin_addresses << input
+    @origin_addresses << input.downcase
     if @origin_addresses.length == 1 
       print green("Added ")
       puts red("you need 1 more address") 
