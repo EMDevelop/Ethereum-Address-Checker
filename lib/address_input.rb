@@ -12,8 +12,8 @@ class AddressInput
   attr_reader :origin_addresses
 
   def delete_addresses
-     @origin_addresses = []
-     puts green("Successfully deleted addresses")
+    @origin_addresses = []
+    puts green("Successfully deleted addresses")
   end
 
   def use_default_addresses
@@ -71,7 +71,7 @@ class AddressInput
   end
 
   def user_input
-     gets.chomp
+    gets.chomp
   end
 
 end

@@ -62,7 +62,7 @@ class Menu
   end
 
   def direct_transactions
-    
+
   end
 
   private
@@ -102,7 +102,7 @@ class Menu
   end
 
   def user_input
-     gets.chomp
+    gets.chomp
   end
 
 end

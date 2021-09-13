@@ -51,13 +51,28 @@ puts "---------------------------------COMPLETE: Data fully Fetched-------------
 
 5.times {puts " "}
 
+#
+
 puts "---------------------------------CHECKING: Direct Transactions---------------------------------"
-outer_counter = 0
-inner_count = 0
+
+# Notes
+# Loop through Array of addresses (a)
+# Loop through the hash keys of the web {address => ... , address => ...}
+# For Each Key that isn't "hash"
+  # Looping through the array values of "to" and "from"          -- this no longer exists now
+  # Check if the original address in the Array (a) exists in the transaction AS LONG AS the original address isn't looking at it's own transactions
+  # Print which direction the transaction happend
+
+
+# outer_counter = 0
+# inner_count = 0
 address.each { |outer_address|   # Looping through outer list of target addresses
   web.each { |inner_address, _|  # Looping through inner list of target addresses (the same addresses comparing with eachother)
+
     web[inner_address].each { |title_key, value| # Looping through the data options (hash, to, from) and the values
+
       if title_key != "hash" # Ignoring the hash, for this we're only interested in to and from addesses
+
         value.each { |array_address| # The hash values for each data option are stored as arrays, so we need to loop through them all
           if outer_address.downcase == array_address.downcase && outer_address.downcase != inner_address.downcase #is the target address present in any other target address's to/from data options?
             if title_key == "from"
@@ -67,11 +82,13 @@ address.each { |outer_address|   # Looping through outer list of target addresse
             end
           end
         } 
+
       end
+
     }
-    inner_count +=1 
+    # inner_count +=1 
   }
-  outer_counter += 1
+  # outer_counter += 1
 }
 puts "---------------------------------COMPLETE: Direct Transactions ---------------------------------"
 
