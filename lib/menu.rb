@@ -17,11 +17,14 @@ class Menu
     @fetch_data_menu_options = {
       "5"=>{description: "Fetch transactions", function: method(:fetch_transactions)}
     }
+    @direct_transactions_menu_options = {
+      "6"=>{description: "Get direct transactions", function: method(:direct_transactions)}
+    }
     @add_address = AddressInput.new
   end
 
-   attr_reader :menu_options
-   attr_reader :fetch_transaction
+  attr_reader :menu_options
+  attr_reader :fetch_transaction
 
   def main_menu
     puts "Welcome to the Ethereum Address Checker"
@@ -50,11 +53,16 @@ class Menu
     check_addresses_exist
     @fetch_transaction = FetchTransaction.new(@add_address.origin_addresses)
     @fetch_transaction.fetch_transactions
+    merge_to_menu_options(@direct_transactions_menu_options)
   end
 
 
   def show_origin_addresses
     @add_address.show_origin_addresses
+  end
+
+  def direct_transactions
+    
   end
 
   private

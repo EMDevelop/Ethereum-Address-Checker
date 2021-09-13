@@ -69,13 +69,34 @@ describe Menu do
     end
 
     it 'Check function returns if there are no addresses' do
-      p "I ran 1"
       expect do
         subject.main_menu
       end.to output(include("Error: No addresses defined, please either add addresses or use the defaults")).to_stdout 
-      p "I ran 2"
     end
 
   end
+
+  context 'Menu Merge: Direct Transactions' do
+
+    let(:fetch_transactions) { double(:FetchTransaction, direct_transactions: {:key=>:value})}
+
+    it 'does not show menu option until fetch_data complete' do
+      allow(subject).to receive(:gets).and_return("6","quit")
+      expect { subject.main_menu }.not_to output(include("6. Get direct transactions")).to_stdout
+    end
+
+    it 'does not show menu option until direct_transactions exist' do
+      allow(subject).to receive(:gets).and_return("2","6","quit")
+      expect { subject.main_menu }.not_to output(include("6. Get direct transactions")).to_stdout
+    end
+
+    it 'shows the menu option after fetch transaction is complete' do
+      allow(subject).to receive(:gets).and_return("2","5","6","quit")
+
+      expect { subject.main_menu }.to output(include("6. Get direct transactions")).to_stdout
+    end
+
+  end
+  
 
 end 
