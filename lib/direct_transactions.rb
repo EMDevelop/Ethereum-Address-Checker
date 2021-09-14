@@ -10,12 +10,10 @@ class DirectTransactions
 
   def analyse_addresses
     loop_origin_addresses
-    p "I ran"
     print_direct_transactions
-    p "I also ran"
   end
 
-  # private
+  private
 
   def print_direct_transactions
     @direct_transactions.each { |from, info|

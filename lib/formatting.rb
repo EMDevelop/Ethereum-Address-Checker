@@ -26,13 +26,11 @@ module Formatting
   end
 
   def print_begin_sub_process(message)
-    space(1)
     puts yellow("~ #{message}")
   end
 
   def print_complete_sub_process(message)
     puts green("✓ #{message}")
-    space(1)
   end
 
   private
