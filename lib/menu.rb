@@ -1,5 +1,6 @@
 require './lib/fetch_transaction.rb'
 require './lib/direct_transactions.rb'
+require './lib/in_common_transactions.rb'
 require './lib/address_input.rb'
 require './lib/formatting'
 
@@ -18,7 +19,8 @@ class Menu
       "5"=>{description: "Fetch transactions", function: method(:fetch_transactions)}
     }
     @direct_transactions_menu_options = {
-      "6"=>{description: "Get direct transactions", function: method(:direct_transactions)}
+      "6"=>{description: "Get direct transactions", function: method(:direct_transactions)},
+      "7"=>{description: "Get transaction addresses in common", function: method(:transactions_in_common)}, 
     }
     @add_address = AddressInput.new
     
@@ -33,6 +35,8 @@ class Menu
       break if handle_menu_input(user_input) == 'quit'
     end
   end
+
+  private
 
   def handle_manual_address_input 
     @add_address.handle_manual_address_input
@@ -64,6 +68,11 @@ class Menu
   def direct_transactions
     @direct = DirectTransactions.new(@fetch_transaction.transaction_history, @add_address.origin_addresses)
     @direct.analyse_addresses
+  end
+
+  def transactions_in_common
+    @in_common = InCommonTransactions.new(@fetch_transaction.transaction_history, @add_address.origin_addresses)
+    @in_common.analyse_addresses
   end
 
   private

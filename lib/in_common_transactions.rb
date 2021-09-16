@@ -14,7 +14,7 @@ class InCommonTransactions
     print_in_common_transactions
   end
 
-  # private 
+  private 
   def loop_all_transactions
     @all_transactions.each { |origin_address, transaction_hash|
       loop_transaction_hashes(origin_address, transaction_hash)
@@ -25,14 +25,11 @@ class InCommonTransactions
     hash_info.each { |hash, trasaction_info|
       validate_transaction_address(origin_address, trasaction_info[:from])
       validate_transaction_address(origin_address,  trasaction_info[:to])
-      # p trasaction_info
     }
   end
 
   def validate_transaction_address(origin_address, direction_address)
     if direction_address != origin_address
-      p direction_address
-      p origin_address
       log_addresses(origin_address, direction_address)      
     end
   end
@@ -51,7 +48,7 @@ class InCommonTransactions
 
   def print_in_common_transactions
     @transactions_in_common.each { |in_common_address, address_array|  
-      puts 'Your Addresses #{address_array.join(", ") have both made transactions (either to or from) #{in_common_address}}'
+      puts "Your Addresses #{address_array.join(', ')} have both made transactions (either to or from) #{in_common_address}"
     }
   end
 

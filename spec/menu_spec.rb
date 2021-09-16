@@ -44,7 +44,7 @@ describe Menu do
 
     it 'Check Warning Thrown: if no addresses exist' do
       expect do 
-        subject.show_origin_addresses
+        subject.main_menu
       end.to output(include("Warning: No Addresses Exist, add your own or use our defaults")).to_stdout
     end
 
@@ -86,17 +86,20 @@ describe Menu do
     it 'does not show menu option until fetch_data complete' do
       allow(subject).to receive(:gets).and_return("6","quit")
       expect { subject.main_menu }.not_to output(include("6. Get direct transactions")).to_stdout
+      expect { subject.main_menu }.not_to output(include("7. Get transaction addresses in common")).to_stdout
     end
 
     it 'does not show menu option until direct_transactions exist' do
       allow(subject).to receive(:gets).and_return("2","6","quit")
       expect { subject.main_menu }.not_to output(include("6. Get direct transactions")).to_stdout
+      expect { subject.main_menu }.not_to output(include("7. Get transaction addresses in common")).to_stdout
     end
 
     # Need to stub
     xit 'shows the menu option after fetch transaction is complete' do
       allow(subject).to receive(:gets).and_return("2","5","6","quit")
       expect { subject.main_menu }.to output(include("6. Get direct transactions")).to_stdout
+      expect { subject.main_menu }.to output(include("7. Get transaction addresses in common")).to_stdout
     end
 
   end
