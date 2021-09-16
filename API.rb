@@ -38,6 +38,7 @@ address.each { |target_address|
   url = "https://api.etherscan.io/api?module=account&action=txlist&address=#{target_address}&startblock=0&endblock=99999999&sort=asc&apikey=#{key}"
   response = RestClient::Request.execute(:method => :get, :url => url, :timeout => 200, :open_timeout => 200)
   jsonResponse = JSON.parse(response)
+  p jsonResponse
   jsonResponse["result"].each { | transaction |
     web[target_address]["hash"].push(transaction["hash"])
     web[target_address]["from"].push(transaction["from"])

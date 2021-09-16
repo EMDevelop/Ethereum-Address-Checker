@@ -10,7 +10,7 @@ You can input 2 or more Ethereum addresses into this application and it will:
 - Determines whether any of your addresses you entered have made any transactions to or from eachother (and outputs to the screen)
 - Determines whether any of your addresses you entered have made any transactions with any addresses in common
   - e.g. address A and address B have both made transactions to address C
-  - Contract addresses should show up as the owner of that contract, and not an Ethereum address (this is WIP, looking for an API to do this for me)
+  - Contract addresses should show up as the owner of that contract, and not an Ethereum address (this is WIP, looking for an API to do this for me, I might be able to use an etherscan API for transactions and use the 'method' key.
 
 ---
 
@@ -46,6 +46,13 @@ You can input 2 or more Ethereum addresses into this application and it will:
 - Only works with Ethereum addresses
 - I have limited transactions allowed per minute on my free version
 - Please use, copy, fork, message me for questions, anything goes.
+- I manually exported data from Etherscan to spot check this was working using
+  - Address: 0x72140c1886f8f2dd932dce06795901f8fb6378a7 & 0x0613cd2076bd432c7a60a1b926b11b17baaafe11
+  - I found their transactions from:
+    - https://etherscan.io/address/0x0613Cd2076bd432C7A60a1b926b11B17BaAaFE11
+    - https://etherscan.io/address/0x72140c1886f8f2dd932dce06795901f8fb6378a7
+  - And exported them to
+    - https://docs.google.com/spreadsheets/d/11KBztDEfSu8LxvSYLvdQtwsbAStuZX0XTqTDmilOFm8/edit#gid=1006381137
 
 ---
 
