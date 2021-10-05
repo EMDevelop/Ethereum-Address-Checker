@@ -2,6 +2,10 @@
 
 This project can be used to check whether 2 or more Ethereum wallets have made transactions between eachother, or have any addresses in common that they've sent/received ERC-20 Tokens or Ethereum to/from.
 
+## Preview
+
+Click the [Video](https://github.com/EMDevelop/public_resources/blob/main/gifs/CryptoAddressWeb/fullMov.mov?raw=true) to download the full preview video (.mov) format
+
 ## What should you expect?
 
 You can input 2 or more Ethereum addresses into this application and it will:
@@ -23,7 +27,7 @@ You can input 2 or more Ethereum addresses into this application and it will:
 - Run `bundle install` (you may need in `gem install bundle`)
 - Open IRB `irb -r './lib/menu.rb'`
 - Create a new address checker in irb `checker = Menu.new`
-- Begin the main menu in irb `menu.main_menu`
+- Begin the main menu in irb `checker.main_menu`
 - Follow menu instructions, and also:
   - Please use at least 2 Ethereum addresses
   - Please make sure they are valid Ethereum addresses
