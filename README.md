@@ -1,4 +1,4 @@
-# Ethereum Wallet Address Checker
+# Ethereum Address Checker
 
 This project can be used to check whether 2 or more Ethereum wallets have made transactions between eachother, or have any addresses in common that they've sent/received ERC-20 Tokens or Ethereum to/from.
 
