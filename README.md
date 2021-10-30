@@ -4,7 +4,7 @@ This project can be used to check whether 2 or more Ethereum wallets have made t
 
 ## Preview
 
-Click the [Video](https://github.com/EMDevelop/public_resources/blob/main/gifs/CryptoAddressWeb/fullMov.mov?raw=true) to download the full preview video (.mov) format
+![](https://github.com/EMDevelop/public_resources/blob/main/gifs/CryptoAddressWeb/EthereumAddressChecker.gif)
 
 ## What should you expect?
 
@@ -32,6 +32,12 @@ You can input 2 or more Ethereum addresses into this application and it will:
   - Please use at least 2 Ethereum addresses
   - Please make sure they are valid Ethereum addresses
   - If you want to exit the application at any point then type `quit` until you see `Thanks for using the Ethereum Address Checker`
+
+```
+irb -r './lib/menu.rb'
+checker = Menu.new
+checker.main_menu
+```
 
 #### Required To Run
 
